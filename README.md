@@ -7,7 +7,7 @@
 To install `fake-lb` in your Kubernetes cluster, run the following command:
 
 ```bash
-kubectl apply -f https://github.com/spurin/fake-lb/fake-lb.yaml
+kubectl apply -f https://raw.githubusercontent.com/spurin/fake-lb/main/fake-lb.yaml
 ```
 
 ## Uninstallation
@@ -15,7 +15,7 @@ kubectl apply -f https://github.com/spurin/fake-lb/fake-lb.yaml
 To remove fake-lb from your Kubernetes cluster, use the same YAML file used for installation:
 
 ```
-kubectl delete -f https://github.com/spurin/fake-lb/fake-lb.yaml
+kubectl delete -f https://raw.githubusercontent.com/spurin/fake-lb/main/fake-lb.yaml
 ```
 
 This command will clean up all resources associated with fake-lb, ensuring that no components are left behind.
