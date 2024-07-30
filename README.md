@@ -32,25 +32,38 @@ kubectl apply -f path/to/your/local/fake-lb.yaml
 
 ## Example Usage
 
-With fake-lb running, LoadBalancer services will be assigned the External-IP's of the node.
+With fake-lb running, LoadBalancer services will be assigned the External-IP's of the nodes.
 
-We can then use the NodePort assignment (31746 in this example), to access the service via the Node IP -
+We can then use the NodePort assignment (30803 in this example), to access the service via the Node IP -
 
 ```
+root@control-plane:~# kubectl expose deployment/nginx --type=LoadBalancer --port 8080 --target-port 80
+service/nginx exposed
+ 
+root@control-plane:~# kubectl get service
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes   ClusterIP      10.43.0.1       <none>        443/TCP          3h4m
+nginx        LoadBalancer   10.43.199.136   <pending>     8080:30803/TCP   5s
+
+root@control-plane:~# kubectl apply -f https://raw.githubusercontent.com/spurin/fake-lb/main/fake-lb.yaml
+serviceaccount/fake-lb created
+clusterrole.rbac.authorization.k8s.io/fake-lb created
+clusterrolebinding.rbac.authorization.k8s.io/fake-lb created
+deployment.apps/fake-lb created
+
 root@control-plane:~# kubectl get service
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP                        PORT(S)          AGE
-kubernetes   ClusterIP      10.43.0.1       <none>                             443/TCP          173m
-nginx        LoadBalancer   10.43.237.179   172.18.0.2,172.18.0.3,172.18.0.4   8080:31746/TCP   6m59s
+kubernetes   ClusterIP      10.43.0.1       <none>                             443/TCP          3h4m
+nginx        LoadBalancer   10.43.199.136   172.18.0.2,172.18.0.3,172.18.0.4   8080:30803/TCP   23s
 
-root@control-plane:~#
-root@control-plane:~# curl 172.18.0.2:31746
+root@control-plane:~# curl 172.18.0.2:30803
 <!DOCTYPE html>
 <body>
 <p><em>Hostname: nginx-77b46474f5-752zn</em></p>
 <p><em>IP Address: 10.42.226.66:80</em></p>
 <p><em>URL: /</em></p>
 <p><em>Request Method: GET</em></p>
-<p><em>Request ID: 4f285b1d196495fa64b11665782f5362</em></p>
+<p><em>Request ID: 731389b29d3fe5b3c5f8fe7bbf0ca01a</em></p>
 </body>
 </html>
 ```
