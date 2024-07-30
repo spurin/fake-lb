@@ -1,6 +1,6 @@
 # fake-lb
 
-`fake-lb` is a lightweight, dummy load balancer designed for local testing in Kubernetes environments. It assigns external IPs from the nodes' internal IPs to services of type `LoadBalancer` without needing a real load balancing solution. This tool is ideal for development and testing purposes, where full load balancing functionality isn't required.
+`fake-lb` is a lightweight, dummy load balancer designed for local testing in Kubernetes environments. It assigns external IPs from the nodes' internal IPs to services of type `LoadBalancer` without needing a real load balancing solution. This tool is ideal for development and testing purposes, where full load balancing functionality isn't required but, you wish for the loadbalancer to transition from pending to something that can be used, albeit, from inside the cluster or via a node ip.
 
 ## Installation
 
